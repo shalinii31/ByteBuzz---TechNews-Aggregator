@@ -13,6 +13,11 @@ It’s both a **learning project** and a **useful tool**.
 
 ---
 
+<p align="center">
+  <img src="Screenshot 2025-11-26 221529.png" width="600">
+</p>
+
+
 ## 👩‍💻 Author
 
 **Shalini Pandey**  
