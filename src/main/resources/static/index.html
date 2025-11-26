@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Tech News Hub</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-color: #0f172a;
+            color: white;
+        }
+
+        /* Header */
+        header {
+            background-color: #020617;
+            padding: 16px 32px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.6rem;
+            font-weight: bold;
+        }
+
+        /* Search Bar */
+        .search-box input {
+            padding: 8px 12px;
+            border-radius: 6px;
+            border: none;
+            width: 250px;
+        }
+
+        .search-box button {
+            padding: 8px 14px;
+            margin-left: 6px;
+            border-radius: 6px;
+            border: none;
+            cursor: pointer;
+        }
+
+        /* Categories */
+        .categories {
+            padding: 16px 32px;
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .category {
+            padding: 6px 12px;
+            background: #1e293b;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 0.85rem;
+        }
+
+        .category.active {
+            background: #38bdf8;
+            color: #000;
+        }
+
+        /* News Cards Grid */
+        .news-grid {
+            padding: 16px 32px;
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+            gap: 16px;
+        }
+
+        .news-card {
+            background: #1e293b;
+            padding: 16px;
+            border-radius: 10px;
+        }
+
+        .news-title {
+            font-size: 1.1rem;
+            font-weight: bold;
+            margin-bottom: 8px;
+        }
+
+        .news-summary {
+            font-size: 0.9rem;
+            color: #d1d5db;
+            margin-bottom: 10px;
+        }
+
+        .read-more {
+            color: #38bdf8;
+            text-decoration: none;
+            font-size: 0.85rem;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- ✅ HEADER -->
+    <header>
+        <div class="logo">TechPulse</div>
+
+        <div class="search-box">
+            <input type="text" placeholder="Search news (e.g., AI, Apple, Java)">
+            <button>Search</button>
+        </div>
+    </header>
+
+    <!-- ✅ CATEGORIES -->
+    <div class="categories">
+        <div class="category active">All</div>
+        <div class="category">AI / ML</div>
+        <div class="category">Gadgets</div>
+        <div class="category">Cyber_security</div>
+        <div class="category">Software Updates</div>
+        <div class="category">Startups</div>
+    </div>
+
+    <!-- ✅ NEWS GRID (Dummy Cards) -->
+<div class="news-grid" id="newsGrid"></div>
+
+<!--  SCRIPT  -->
+<script>
+    // Step 1: Call backend API
+    fetch("http://localhost:9090/news")
+        .then(response => response.json())
+        .then(data => {
+
+            const articles = data.articles;      // Extract the articles array
+            const newsGrid = document.getElementById("newsGrid");  // Where cards go
+
+            // Step 2: Loop through each article
+            articles.forEach(article => {
+
+                // Prepare card HTML
+                const card = `
+                    <div class="news-card">
+                        <div class="news-title">${article.title || "No Title"}</div>
+                        <div class="news-summary">${article.description || "No Description Available"}</div>
+                        <a href="${article.url}" target="_blank" class="read-more">Read more →</a>
+                    </div>
+                `;
+
+                // Step 3: Add card to the page
+                newsGrid.innerHTML += card;
+            });
+        })
+        .catch(error => {
+            console.error("Error fetching news:", error);
+        });
+</script>
+
+
+</body>
+</html>
